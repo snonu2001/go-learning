@@ -1,0 +1,162 @@
+{
+  "swagger": "2.0",
+  "host": "recruitment",
+  "basePath": "/v1",
+  "info": {
+    "description": "Digital Orientation Platform Recruitment supporting Go platform",
+    "version": "1.0.0",
+    "title": "Recruitment-Pf"
+  },
+  "tags": [
+    {
+      "name": "candidate",
+      "description": "manage candidates."
+    }
+  ],
+  "paths": {
+    "/candidates": {
+      "post": {
+        "tags": [
+          "candidate"
+        ],
+        "summary": "Add new candidate",
+        "description": "Add new candidate to recruitment PF",
+        "operationId": "addCandidates",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "upfile",
+            "type": "file",
+            "description": "csv file containing candidate details",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Candidate"
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "409": {
+            "description": "Candidate already exists"
+          }
+        }
+      }
+    },
+    "/candidates/profile": {
+      "put": {
+        "tags": [
+          "candidate"
+        ],
+        "summary": "Update candidate profile",
+        "description": "This is to update profile of a candidate.",
+        "operationId": "updateCandidate",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Candidate object that needs to be updated in database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Candidate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Candidate"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid email supplied"
+          },
+          "404": {
+            "description": "Candidate not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+
+    }
+  },
+  "definitions": {
+    "Candidate": {
+      "type": "object",
+      "required": [
+        "name",
+        "personalEmail",
+        "collegeName",
+        "branch",
+        "yearOfPassOut"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "johny"
+        },
+        "personalEmail": {
+          "type": "string",
+          "example": "johny@gmail.com"
+        },
+        "collegeName": {
+          "type": "string",
+          "example": "NSS College of Engineering, Palakkad"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "example": "+91 99999 11111"
+        },
+        "branch": {
+          "type": "string",
+          "example": "Computer Engineering"
+        },
+        "yearOfPassOut": {
+          "type": "integer",
+          "example": "2022"
+        }
+      }
+    },
+    "Message":{
+      "type": "object",
+      "required": [
+        "success"
+      ],
+      "properties": {
+        "success": {
+          "type": "integer",
+          "example": "98"
+        },
+        "failed": {
+          "type":"integer",
+          "example": "2"
+        }
+      }
+    }
+  }
+}

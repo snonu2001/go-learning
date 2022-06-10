@@ -1,0 +1,263 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/task": {
+      "get": {
+        "operationId": "TaskController_listAllTask",
+        "summary": "List All Task Details",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Task"
+        ]
+      },
+      "post": {
+        "operationId": "TaskController_createTask",
+        "summary": "Create a new Task",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTaskBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Task"
+        ]
+      }
+    },
+    "/task/{id}": {
+      "get": {
+        "operationId": "TaskController_listTask",
+        "summary": "List a Task Details",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Task"
+        ]
+      },
+      "patch": {
+        "operationId": "TaskController_updateTask",
+        "summary": "Update Task Details",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTaskBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Task"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Digital Orientation Platform - Task Nest API",
+    "description": "DOP Task Management & Assesment Supporting Nest Microservice",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local Server"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "TaskDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "tag": {
+            "type": "string"
+          },
+          "parent_task_id": {
+            "type": "number"
+          },
+          "isactive": {
+            "type": "boolean"
+          },
+          "created_by": {
+            "type": "number"
+          },
+          "created_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "reference",
+          "tag",
+          "parent_task_id",
+          "isactive",
+          "created_by",
+          "created_at"
+        ]
+      },
+      "CreateTaskBodyDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "tag": {
+            "type": "string"
+          },
+          "parent_task_id": {
+            "type": "number"
+          },
+          "created_by": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "title",
+          "description",
+          "reference",
+          "tag",
+          "parent_task_id",
+          "created_by"
+        ]
+      },
+      "MessageDto": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "UpdateTaskBodyDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "tag": {
+            "type": "string"
+          },
+          "parent_task_id": {
+            "type": "number"
+          },
+          "isactive": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "title",
+          "description",
+          "reference",
+          "tag",
+          "parent_task_id",
+          "isactive"
+        ]
+      }
+    }
+  }
+}
